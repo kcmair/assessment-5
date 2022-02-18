@@ -1,0 +1,27 @@
+animals table:
+    id 
+    animal_name
+    species_id
+    date_aquired
+    date_addopted
+    person_id
+
+animal_species table:
+    id
+    species_name
+    species_class
+    
+animal_class:
+    id    
+    class_name
+
+person_table:
+    id
+    first_name
+    last_name
+    email
+    home_address
+    phone_number
+
+
+
