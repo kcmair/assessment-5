@@ -29,7 +29,9 @@ function handleSubmit(e) {
 
 function deleteCard(id) {
     axios.delete(`http://localhost:4004/cities/${id}`)
-        .then(() => getCities())
+        .then(() => {
+            getCities()
+        })
         .catch(err => console.log(err))
 }
 
@@ -39,7 +41,8 @@ function getCities() {
     axios.get('http://localhost:4004/cities/')
         .then(res => {
             res.data.forEach(elem => {
-                let countryCard = `<div class="country-card">
+                let countryCard = `
+                    <div class="country-card">
                     <h2>${elem.city}, ${elem.country}</h2>
                     <h3>Rating: ${elem.rating}/5</h3>
                     <button onclick="deleteCard(${elem['city_id']})">Delete</button>

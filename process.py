@@ -10,9 +10,25 @@ def sales_reports(log_file):
         # saves the first three characters of the data in index 0 to the day variable
         day = line[0:3]
         # checks if those first three chacters are "Tue"
-        if day == "Tue":
+        if day == "Mon":
             # If the above statement is true the current line is printed to the console
             print(line)
 
 # calls the sales_reports function and passes in the data stored in the log_file variable
 sales_reports(log_file)
+
+print('---------------------------------------------------')
+print('---------------------------------------------------')
+
+log_file.seek(0,0)
+
+def ten_plus (log_file):
+    for line in log_file:
+        line = line.rstrip()
+        arr = line.split(' ')
+        if int(arr[2]) > 10:
+          print(line) 
+
+ten_plus(log_file)
+
+log_file.close()

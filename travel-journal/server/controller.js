@@ -12,7 +12,7 @@ const sequelize = new Sequelize(process.env.CONNECTION_STRING, {
 
 
 module.exports = {
-    seed: (req, res) => {
+    seed: (req, res) => {        
         sequelize.query(`
             drop table if exists cities;
             drop table if exists countries;
@@ -225,6 +225,13 @@ module.exports = {
             ('Yemen'),
             ('Zambia'),
             ('Zimbabwe');
+
+        INSERT INTO cities (name, rating, country_id)
+        VALUES 
+            ('Herriman', 5, 187),
+            ('London', 4, 186),
+            ('Sidney', 3, 9);
+
         `).then(() => {
             console.log('DB seeded!')
             res.sendStatus(200)
@@ -252,10 +259,12 @@ module.exports = {
 
     getCities: (req, res) => {
         sequelize.query(`
-            SELECT city.city_id, city.name, city.rating, country.country_id, country.name
-            FROM cities city
-            JOIN countries country
-            ON city.country_id = country.country_id;
+            SELECT cities.city_id, cities.name city, cities.rating, countries.country_id, countries.name country
+            FROM cities 
+            JOIN countries 
+            ON cities.country_id = countries.country_id
+            ORDER BY cities.rating DESC
+            ;
         `)
         .then((dbRes) => res.status(200).send(dbRes[0]))
         .catch(err => console.log(err))
@@ -268,5 +277,7 @@ module.exports = {
             FROM cities
             WHERE city_id = '${id}';
         `)
+        .then((dbRes) => res.status(200).send(dbRes[0]))
+        .catch(err => console.log(err))
     }
 }
